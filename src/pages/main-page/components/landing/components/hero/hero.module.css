@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
+
+.container {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: var(--layout-page-padding);
+}
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height);
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btnQuiet {
+  background: transparent;
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.btnQuiet:hover {
+  background: var(--color-surface);
+}
+
+.btnLime {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent-border);
+}
+
+.btnLime:hover {
+  background: var(--color-accent-hover);
+}
+
+/* ---------- Первый экран: лист тетради учёта ---------- */
+.hero {
+  padding-top: var(--space-6);
+}
+
+.sheet {
+  position: relative;
+  display: grid;
+  gap: var(--space-6);
+  padding-block: clamp(2rem, 5vw, 4.25rem);
+  padding-inline: clamp(2.5rem, 6.4vw, 5.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background:
+    repeating-linear-gradient(transparent 0 35px, var(--color-divider) 35px 36px),
+    var(--color-surface);
+}
+
+/* Лаймовая линия полей слева */
+.sheet::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: clamp(1.125rem, 3.2vw, 2.625rem);
+  width: 3px;
+  background: var(--color-accent);
+}
+
+.heroText {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-caption);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.hero h1 {
+  font-family: 'Unbounded', var(--font-sans);
+  font-size: clamp(2.5rem, 7.4vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* Маркер под словом «счёт»: полоса в нижней половине строки */
+.hero mark {
+  --band: light-dark(var(--color-accent), color-mix(in srgb, var(--color-accent) 30%, transparent));
+  padding-inline: 0.08em;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(transparent 54%, var(--band) 54% 92%, transparent 92%);
+  color: inherit;
+}
+
+.lead {
+  max-width: 42ch;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.btnLg {
+  height: 3.375rem; /* 54 */
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+.micro {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Галочка из public/icons: маска красит её в цвет токена */
+.micro::before {
+  content: '';
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 3px;
+  background: var(--color-accent-text);
+  mask: url('/icons/check.svg') center / contain no-repeat;
+}
+
+.heroVisual {
+  position: relative;
+  align-self: center;
+}
+
+/* Лаймовое свечение за телефоном */
+.heroVisual::before {
+  content: '';
+  position: absolute;
+  inset: 6% -10% 0;
+  background: radial-gradient(
+    48% 42% at 50% 42%,
+    color-mix(in srgb, var(--color-accent) 34%, transparent),
+    transparent 72%
+  );
+}
+
+/* Телефон стоит в потоке, поэтому лист растягивается под его полную высоту */
+.heroPhone {
+  position: relative;
+  width: min(300px, 80%);
+  margin-inline: auto;
+}
+
+.phone {
+  width: 100%;
+}
+
+.toast {
+  position: absolute;
+  top: 40%;
+  left: -14px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-popover);
+}
+
+/* ---------- Превью под тему ---------- */
+/* Тема системная, data-theme на <html> её перебивает — как в index.css */
+.onLight {
+  display: block;
+}
+
+.onDark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .onLight {
+    display: none;
+  }
+
+  :root:not([data-theme='light']) .onDark {
+    display: block;
+  }
+}
+
+:root[data-theme='dark'] .onLight {
+  display: none;
+}
+
+:root[data-theme='dark'] .onDark {
+  display: block;
+}
+
+/* Широкий экран: текст и телефон в две колонки */
+@media (min-width: 900px) {
+  .sheet {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+
+  .toast {
+    top: 43%;
+    left: -76px;
+  }
+}

@@ -1,0 +1,28 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  --size: 120vmax;
+  --blob-color: var(--color-accent-muted);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size);
+  aspect-ratio: 1;
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  background: radial-gradient(
+    circle closest-side,
+    var(--blob-color),
+    color-mix(in srgb, var(--blob-color) 90%, transparent) 20%,
+    color-mix(in srgb, var(--blob-color) 65%, transparent) 40%,
+    color-mix(in srgb, var(--blob-color) 35%, transparent) 60%,
+    color-mix(in srgb, var(--blob-color) 10%, transparent) 80%,
+    transparent
+  );
+  will-change: transform;
+}

@@ -1,0 +1,142 @@
+/* Форма регистрации из макета «Окно входа и регистрации». Цвета — токены из index.css. */
+
+.root {
+  display: grid;
+  gap: 18px;
+}
+
+.title {
+  font-size: 1.5rem; /* 24 */
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- Поле ---------- */
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.field small {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-caption);
+}
+
+.field input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-inset);
+  font-size: var(--font-size-md);
+}
+
+.field input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.75;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+/* ---------- Пароль с кнопкой «показать» ---------- */
+.pass {
+  position: relative;
+}
+
+.pass input {
+  padding-right: 48px;
+}
+
+.eye {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.eye:hover {
+  color: var(--color-text);
+}
+
+.ico {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Кнопка отправки ---------- */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 4px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow:
+    inset 0 0 0 1px var(--color-accent-border),
+    var(--shadow-button);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+}
+
+.submit:hover {
+  background: var(--color-accent-hover);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .submit:active {
+    transform: translateY(1px);
+  }
+}
+
+/* ---------- Переход ко входу ---------- */
+.switch {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.switch button {
+  padding: 2px;
+  border: 0;
+  background: none;
+  color: var(--color-accent-text);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

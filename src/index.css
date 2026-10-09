@@ -1,0 +1,256 @@
+/*
+ * Тема по умолчанию — системная (prefers-color-scheme).
+ * Принудительно: <html data-theme="light"> или <html data-theme="dark">.
+ * Цвета заданы через light-dark(светлая, тёмная).
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- Поверхности ---------- */
+  --color-bg: light-dark(#f3f4ef, #0d0f13);
+  --color-bg-sidebar: light-dark(#ffffff, #121419);
+  --color-surface: light-dark(#ffffff, #171a20);
+  --color-surface-hover: light-dark(#f8f9f5, #1d2129);
+  --color-surface-inset: light-dark(#f3f4ef, #0d0f13);
+  --color-border: light-dark(#e2e5db, #262a33);
+  --color-divider: light-dark(#edefe8, #1f232a);
+  --color-overlay: light-dark(rgb(21 24 15 / 0.4), rgb(0 0 0 / 0.6));
+
+  /* Карточка аналитики: тёмная в обеих темах */
+  --color-surface-inverse: light-dark(#15180f, #171a20);
+  --color-border-inverse: light-dark(#15180f, #262a33);
+  --color-text-inverse: light-dark(#f1f3ec, #f1f3f6);
+  --color-text-inverse-muted: light-dark(#a3aa98, #9aa3b0);
+  --color-success-inverse: #4cd68a;
+
+  /* ---------- Текст ---------- */
+  --color-text: light-dark(#15180f, #f1f3f6);
+  --color-text-muted: light-dark(#686e62, #9aa3b0);
+
+  /* ---------- Акцент (лайм) ---------- */
+  --color-accent: #c6f135;
+  --color-accent-hover: light-dark(#b5de2a, #d3f65a);
+  --color-accent-border: light-dark(#add230, #c6f135);
+  --color-on-accent: light-dark(#15180f, #151a02);
+  --color-accent-text: light-dark(#4a6a00, #c6f135);
+  --color-accent-soft: light-dark(#f2fad3, #262d14);
+  --color-accent-muted: light-dark(#f3fddf, #343f2d);
+  --color-highlight: light-dark(#c6f135, transparent); /* маркер под «Всего 84 250 ₽» */
+  --color-focus: var(--color-accent-text);
+
+  /* ---------- Статусы ---------- */
+  --color-success: light-dark(#1b7a3a, #4cd68a);
+  --color-danger: light-dark(#d0343f, #f16c6c);
+
+  /* ---------- Категории ---------- */
+  --color-cat-blue: #3987e5;
+  --color-cat-orange: #d95926;
+  --color-cat-teal: #199e70;
+  --color-cat-amber: #c98500;
+  --color-cat-pink: #d55181;
+  --color-cat-green: #008300;
+
+  /* Фон плитки = 20% цвета категории поверх карточки (совпадает с макетами обеих тем) */
+  --tint-strength: 20%;
+  --color-cat-blue-soft: color-mix(in srgb, var(--color-cat-blue) var(--tint-strength), var(--color-surface));
+  --color-cat-orange-soft: color-mix(in srgb, var(--color-cat-orange) var(--tint-strength), var(--color-surface));
+  --color-cat-teal-soft: color-mix(in srgb, var(--color-cat-teal) var(--tint-strength), var(--color-surface));
+  --color-cat-amber-soft: color-mix(in srgb, var(--color-cat-amber) var(--tint-strength), var(--color-surface));
+  --color-cat-pink-soft: color-mix(in srgb, var(--color-cat-pink) var(--tint-strength), var(--color-surface));
+  --color-cat-green-soft: color-mix(in srgb, var(--color-cat-green) var(--tint-strength), var(--color-surface));
+
+  /* ---------- Графики (на тёмной карточке аналитики) ---------- */
+  --color-chart-income: #c6f135;
+  --color-chart-expense: #6b7c2f;
+  --color-chart-grid: light-dark(#2b3024, #262a33);
+  --color-chart-axis: light-dark(#6a7061, #636975);
+
+  /* ---------- Тени (в тёмной теме почти все прозрачные) ---------- */
+  --shadow-card: 0 1px 2px light-dark(rgb(21 24 15 / 0.05), transparent);
+  --shadow-inverse: 0 12px 32px -6px light-dark(rgb(21 24 15 / 0.35), transparent);
+  --shadow-button: 0 4px 12px -2px light-dark(rgb(21 24 15 / 0.15), transparent);
+  --shadow-popover:
+    0 12px 32px light-dark(rgb(21 24 15 / 0.14), rgb(0 0 0 / 0.5));
+  --shadow-accent: 0 6px 24px color-mix(in srgb, var(--color-accent) 35%, transparent);
+
+  /* ---------- Типографика ---------- */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
+
+  --font-size-caption: 0.75rem; /* 12 — подписи «расходы», таб-бар */
+  --font-size-sm: 0.875rem; /* 14 — вторичные строки, оси, проценты */
+  --font-size-md: 1rem; /* 16 — основной текст, пункты меню */
+  --font-size-lg: 1.125rem; /* 18 — заголовки карточек */
+  --font-size-hero: 2rem; /* 32 — баланс на лайм-карточке */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.45;
+
+  /* ---------- Отступы (шаг 4px) ---------- */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-8: 2rem; /* 32 */
+  --space-10: 2.5rem; /* 40 */
+
+  /* ---------- Скругления ---------- */
+  --radius-xs: 4px; /* маркеры легенды */
+  --radius-sm: 8px;
+  --radius-md: 12px; /* кнопки, пункты меню, иконки-плитки */
+  --radius-lg: 16px;
+  --radius-pill: 999px; /* переключатель месяца, сегменты */
+
+  /* ---------- Контролы ---------- */
+  --control-height: 2.75rem; /* 44 */
+  --control-height-sm: 2.25rem; /* 36 */
+  --icon-tile-size: 2.5rem; /* 40 */
+  --icon-size: 1.25rem; /* 20 */
+  --fab-size: 3.5rem; /* 56 */
+
+  /* ---------- Анимации ---------- */
+  --duration-fast: 120ms;
+  --duration: 200ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Адаптивные размеры: телефон (< 768px) ---------- */
+  --layout-sidebar-width: 0px;
+  --layout-tabbar-height: calc(4rem + env(safe-area-inset-bottom, 0px));
+  --layout-page-padding: var(--space-4);
+  --layout-gap: var(--space-3);
+  --layout-max-width: 1600px;
+  --card-padding: var(--space-4);
+  --radius-card: 16px;
+  --font-size-title: 1.375rem; /* 22 — заголовок страницы */
+  --font-size-amount: 1.25rem; /* 20 — крупные суммы в карточках */
+}
+
+/* Планшет: сайдбар-рельс с иконками, сетка 2 колонки */
+@media (min-width: 768px) {
+  :root {
+    --layout-sidebar-width: 88px;
+    --layout-tabbar-height: 0px;
+    --layout-page-padding: var(--space-6);
+    --layout-gap: var(--space-4);
+    --card-padding: var(--space-5);
+    --radius-card: 18px;
+    --font-size-title: 1.5rem; /* 24 */
+    --font-size-amount: 1.25rem; /* 20 */
+  }
+}
+
+/* Компьютер: полный сайдбар с подписями, сетка 3 колонки */
+@media (min-width: 1200px) {
+  :root {
+    --layout-sidebar-width: 280px;
+    --layout-page-padding: var(--space-8);
+    --layout-gap: var(--space-5);
+    --card-padding: var(--space-6);
+    --radius-card: 20px;
+    --font-size-title: 1.75rem; /* 28 */
+    --font-size-amount: 1.375rem; /* 22 */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration: 0ms;
+  }
+}
+
+/* ---------- Принудительная тема ---------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* ---------- База ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}

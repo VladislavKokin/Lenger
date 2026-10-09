@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
+
+.container {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: var(--layout-page-padding);
+}
+
+.cta {
+  padding-top: clamp(4.5rem, 10vw, 8rem);
+}
+
+/* Плашка как на макете: в светлой теме тёмная с лаймовой кнопкой, в тёмной — лаймовая с тёмной */
+.band {
+  --band-bg: light-dark(var(--color-surface-inverse), var(--color-accent));
+  --band-text: light-dark(var(--color-text-inverse), var(--color-on-accent));
+  --band-muted: light-dark(
+    var(--color-text-inverse-muted),
+    color-mix(in srgb, var(--color-on-accent) 78%, transparent)
+  );
+  --band-btn: light-dark(var(--color-accent), var(--color-on-accent));
+  --band-btn-text: light-dark(var(--color-on-accent), var(--color-accent));
+  --band-glow: light-dark(color-mix(in srgb, var(--color-accent) 32%, transparent), transparent);
+
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: var(--space-6) var(--space-10);
+  padding: clamp(1.75rem, 5.4vw, 4rem);
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--band-bg);
+  color: var(--band-text);
+}
+
+/* Лаймовое свечение в правом верхнем углу */
+.band::after {
+  content: '';
+  position: absolute;
+  top: -110px;
+  right: -90px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(closest-side, var(--band-glow), transparent);
+  pointer-events: none;
+}
+
+.band :focus-visible {
+  outline-color: var(--band-text);
+}
+
+.band h2 {
+  font-family: 'Unbounded', var(--font-sans);
+  font-size: clamp(1.6875rem, 4.1vw, 2.875rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.band p {
+  max-width: 48ch;
+  margin-top: var(--space-3);
+  font-size: var(--font-size-lg);
+  color: var(--band-muted);
+}
+
+.actions {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.375rem; /* 54 */
+  padding-inline: var(--space-6);
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--band-btn);
+  color: var(--band-btn-text);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+}
+
+/* При наведении кнопка белая с тёмным текстом — в обеих темах */
+.btn:hover {
+  background: light-dark(var(--color-surface), var(--color-text));
+  color: var(--color-on-accent);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.link {
+  padding: var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--band-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Планшет и шире: текст слева, кнопки справа */
+@media (min-width: 720px) {
+  .band {
+    grid-template-columns: minmax(0, 1.3fr) auto;
+  }
+
+  .actions {
+    justify-items: center;
+  }
+}

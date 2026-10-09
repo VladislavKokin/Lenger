@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
+
+.container {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: var(--layout-page-padding);
+}
+
+.devices {
+  padding-top: clamp(4.5rem, 10vw, 8rem);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.875rem);
+}
+
+.head h2 {
+  font-family: 'Unbounded', var(--font-sans);
+  font-size: clamp(1.6875rem, 4.1vw, 2.875rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.head p {
+  max-width: 56ch;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Плашки под заголовком ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.chips span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-divider);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Галочка из public/icons: маска красит её в цвет токена */
+.chips span::before {
+  content: '';
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background: var(--color-accent-text);
+  mask: url('/icons/check.svg') center / contain no-repeat;
+}
+
+/* ---------- Сцена с устройствами ---------- */
+.scene {
+  position: relative;
+  padding: clamp(1.125rem, 3vw, 2.25rem);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: radial-gradient(
+    90% 80% at 12% 0%,
+    var(--color-accent-soft),
+    var(--color-surface) 70%
+  );
+}
+
+/* Превью из public/previews; тень повторяет скруглённую форму картинки */
+.shot {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(var(--shadow-popover));
+}
+
+/* На телефоне показываем только компьютер */
+.tablet {
+  display: none;
+}
+
+/* Планшет и шире: планшет стоит поверх правого нижнего угла */
+@media (min-width: 600px) {
+  .scene {
+    padding-bottom: clamp(4.375rem, 10vw, 8.125rem);
+  }
+
+  .desktop {
+    width: 84%;
+  }
+
+  .tablet {
+    position: absolute;
+    right: clamp(0.875rem, 3vw, 2.25rem);
+    bottom: clamp(0.875rem, 3vw, 1.875rem);
+    display: block;
+    width: 28%;
+  }
+}
+
+/* ---------- Превью под тему ---------- */
+/* Тема системная, data-theme на <html> её перебивает — как в index.css */
+.onLight {
+  display: block;
+}
+
+.onDark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .onLight {
+    display: none;
+  }
+
+  :root:not([data-theme='light']) .onDark {
+    display: block;
+  }
+}
+
+:root[data-theme='dark'] .onLight {
+  display: none;
+}
+
+:root[data-theme='dark'] .onDark {
+  display: block;
+}

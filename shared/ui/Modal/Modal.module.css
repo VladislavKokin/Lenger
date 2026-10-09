@@ -1,0 +1,67 @@
+/* Обёртка модальных окон по макету «Окно входа и регистрации». Цвета — токены из index.css. */
+
+/* Сам <dialog> растянут на весь экран и служит затемнением */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-4);
+  border: 0;
+  background: var(--color-overlay);
+  color: var(--color-text);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.overlay::backdrop {
+  background: none;
+}
+
+.card {
+  position: relative;
+  width: min(440px, 100%);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  padding: 22px var(--space-6) var(--space-6);
+  overflow-y: auto;
+  border-radius: 24px;
+  background: var(--color-surface);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    var(--shadow-popover);
+}
+
+/* ---------- Крестик ---------- */
+.close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-divider);
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.close:hover {
+  color: var(--color-text);
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
