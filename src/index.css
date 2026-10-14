@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
+
 /*
  * Тема по умолчанию — системная (prefers-color-scheme).
  * Принудительно: <html data-theme="light"> или <html data-theme="dark">.
@@ -77,6 +79,7 @@
   /* ---------- Типографика ---------- */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  --font-display: 'Unbounded', var(--font-sans); /* заголовки и логотип лендинга */
 
   --font-size-caption: 0.75rem; /* 12 — подписи «расходы», таб-бар */
   --font-size-sm: 0.875rem; /* 14 — вторичные строки, оси, проценты */
@@ -115,6 +118,7 @@
   --icon-tile-size: 2.5rem; /* 40 */
   --icon-size: 1.25rem; /* 20 */
   --fab-size: 3.5rem; /* 56 */
+  --header-height: 4.25rem;
 
   /* ---------- Анимации ---------- */
   --duration-fast: 120ms;
@@ -187,6 +191,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scrollbar-width: none;
+  scroll-padding-top: calc(var(--header-height) + 1px);
 }
 
 html::-webkit-scrollbar {
@@ -253,4 +258,140 @@ button {
 ::selection {
   background: var(--color-accent);
   color: var(--color-on-accent);
+}
+
+/* ========== Общие классы ========== */
+
+/* ---------- Иконки (shared/ui/Icons) ---------- */
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-sm {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- Кнопки лендинга ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height);
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.btn-quiet:hover {
+  background: var(--color-surface);
+}
+
+.btn-lime {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent-border);
+}
+
+.btn-lime:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-lg {
+  height: 3.375rem; /* 54 */
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Секции лендинга ---------- */
+.container {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: var(--layout-page-padding);
+}
+
+.section-head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.875rem);
+}
+
+.section-head p {
+  max-width: 56ch;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6875rem, 4.1vw, 2.875rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* ---------- Карточки дашборда ---------- */
+.card {
+  background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px var(--color-border);
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-head b {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+/* «+ Счёт», «Вся история ›» в шапке карточки */
+.card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-accent-text);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .card-head {
+    flex-wrap: wrap;
+  }
 }

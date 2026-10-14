@@ -1,17 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
-
-.container {
-  width: 100%;
-  max-width: 75rem;
-  margin-inline: auto;
-  padding-inline: var(--layout-page-padding);
-}
-
 .cta {
   padding-top: clamp(4.5rem, 10vw, 8rem);
 }
 
-/* Плашка как на макете: в светлой теме тёмная с лаймовой кнопкой, в тёмной — лаймовая с тёмной */
 .band {
   --band-bg: light-dark(var(--color-surface-inverse), var(--color-accent));
   --band-text: light-dark(var(--color-text-inverse), var(--color-on-accent));
@@ -34,7 +24,6 @@
   color: var(--band-text);
 }
 
-/* Лаймовое свечение в правом верхнем углу */
 .band::after {
   content: '';
   position: absolute;
@@ -48,15 +37,6 @@
 
 .band :focus-visible {
   outline-color: var(--band-text);
-}
-
-.band h2 {
-  font-family: 'Unbounded', var(--font-sans);
-  font-size: clamp(1.6875rem, 4.1vw, 2.875rem);
-  font-weight: var(--font-weight-semibold);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  text-wrap: balance;
 }
 
 .band p {
@@ -78,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 3.375rem; /* 54 */
+  height: 3.375rem;
   padding-inline: var(--space-6);
   border: 0;
   border-radius: var(--radius-lg);
@@ -92,7 +72,6 @@
     transform var(--duration-fast) var(--ease);
 }
 
-/* При наведении кнопка белая с тёмным текстом — в обеих темах */
 .btn:hover {
   background: light-dark(var(--color-surface), var(--color-text));
   color: var(--color-on-accent);
@@ -113,7 +92,6 @@
   text-underline-offset: 3px;
 }
 
-/* Планшет и шире: текст слева, кнопки справа */
 @media (min-width: 720px) {
   .band {
     grid-template-columns: minmax(0, 1.3fr) auto;

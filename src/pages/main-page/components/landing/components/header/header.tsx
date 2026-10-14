@@ -7,7 +7,7 @@ export const Header = () => {
 
     return (
       <header className={styles.header}>
-        <div className={`${styles.container} ${styles.headerInner}`}>
+        <div className={`container ${styles.headerInner}`}>
           <a className={styles.logo} href="#top">
             <i>₽</i>Мои финансы
           </a>
@@ -20,14 +20,14 @@ export const Header = () => {
           <div className={styles.headerActions}>
             <button
               type="button"
-              className={`${styles.btn} ${styles.btnQuiet}`}
+              className="btn btn-quiet"
               onClick={() => setIsModalWindow("auth")}
             >
               Войти
             </button>
             <button
               type="button"
-              className={`${styles.btn} ${styles.btnLime}`}
+              className="btn btn-lime"
               onClick={() => setIsModalWindow("register")}
             >
               Создать аккаунт

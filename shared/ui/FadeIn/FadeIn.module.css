@@ -1,0 +1,42 @@
+.root {
+  --fade-duration: 1200ms;
+  --fade-step: 150ms;
+}
+
+.root > * {
+  animation: fade-in var(--fade-duration) ease-in-out backwards;
+  animation-delay: calc(var(--fade-index, 8) * var(--fade-step));
+  overflow-anchor: none;
+}
+
+.root > :nth-child(1) { --fade-index: 0; }
+.root > :nth-child(2) { --fade-index: 1; }
+.root > :nth-child(3) { --fade-index: 2; }
+.root > :nth-child(4) { --fade-index: 3; }
+.root > :nth-child(5) { --fade-index: 4; }
+.root > :nth-child(6) { --fade-index: 5; }
+.root > :nth-child(7) { --fade-index: 6; }
+.root > :nth-child(8) { --fade-index: 7; }
+
+.root > :where(header) {
+  animation-name: fade-in-still;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes fade-in-still {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root > * {
+    animation: none;
+  }
+}

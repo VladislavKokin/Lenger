@@ -16,7 +16,6 @@ const tabs = [
 ] as const
 
 export const AuthModal = ({ mode, onChange }: AuthModalProps) => {
-    // вход уезжает влево, регистрация — вправо
     const offset = mode === 'register' ? 16 : -16
 
     return (

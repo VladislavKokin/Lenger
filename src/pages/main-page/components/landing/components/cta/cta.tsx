@@ -6,10 +6,10 @@ export const Cta = () => {
   const [isModalWindow, setIsModalWindow] = useState<AuthModalMode>(null)
 
   return (
-    <section className={`${styles.container} ${styles.cta}`} aria-labelledby="cta-h">
+    <section className={`container ${styles.cta}`} aria-labelledby="cta-h">
       <div className={styles.band}>
         <div>
-          <h2 id="cta-h">Начните с одного счёта</h2>
+          <h2 className="section-title" id="cta-h">Начните с одного счёта</h2>
           <p>
             Добавьте карту или кошелёк и запишите первую трату — через неделю станет видно, куда
             уходят деньги.

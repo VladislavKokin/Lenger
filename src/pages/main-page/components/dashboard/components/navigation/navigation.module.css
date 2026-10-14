@@ -1,0 +1,232 @@
+.side {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    background: color-mix(in srgb, var(--color-bg-sidebar) 74%, transparent);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid var(--color-border);
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--color-text);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+    font-size: 14.5px;
+    padding-left: 6px;
+}
+
+.brand i {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    display: grid;
+    place-items: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: inset 0 0 0 1px rgba(21, 24, 15, 0.14), 0 1px 2px rgba(21, 24, 15, 0.12);
+}
+
+.nav {
+    display: grid;
+    gap: 2px;
+}
+
+.nav :is(a, button) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    transition: box-shadow 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.nav :is(a, button):hover,
+.nav :is(a, button).on {
+    box-shadow: inset 0 0 0 2px var(--color-accent);
+    color: var(--color-text);
+}
+
+.nav :is(a, button):active {
+    transform: scale(0.97);
+}
+
+.nav :is(a, button).on {
+    font-weight: 600;
+}
+
+.nav :is(a, button):hover .ico,
+.nav :is(a, button).on .ico {
+    color: var(--color-accent-text);
+}
+
+.ico {
+    transition: color 0.2s ease;
+}
+
+.user {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 6px;
+    border-top: 1px solid var(--color-border);
+}
+
+.user b {
+    display: block;
+    font-size: 12.5px;
+}
+
+.user small {
+    color: var(--color-text-muted);
+    font-size: 11.5px;
+}
+
+.ava {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex: none;
+}
+
+@media (max-width: 1024px) {
+    .side {
+        padding: 16px 0;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .brand {
+        gap: 0;
+        padding-left: 0;
+        font-size: 0;
+    }
+
+    .brand i {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .nav {
+        gap: 6px;
+        justify-items: center;
+    }
+
+    .nav :is(a, button) {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        gap: 0;
+        justify-content: center;
+        border-radius: 11px;
+        font-size: 0;
+    }
+
+    .user {
+        gap: 0;
+        padding: 0;
+        border-top: 0;
+    }
+
+    .user > div {
+        display: none;
+    }
+
+    .ava {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 600px) {
+    .side {
+        position: fixed;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        height: 72px;
+        padding: 0 0 8px;
+        border-right: 0;
+        border-top: 1px solid var(--color-border);
+        background: color-mix(in srgb, var(--color-surface) 74%, transparent);
+    }
+
+    .brand,
+    .user {
+        display: none;
+    }
+
+    .nav {
+        flex: 1;
+        width: 100%;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: start;
+        padding-top: 14px;
+        gap: 0;
+    }
+
+    .nav :is(a, button) {
+        display: grid;
+        justify-items: center;
+        gap: 3px;
+        width: auto;
+        height: auto;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .nav :is(a, button):hover,
+    .nav :is(a, button).on {
+        box-shadow: none;
+    }
+
+    .nav :is(a, button).on {
+        color: var(--color-accent-text);
+    }
+
+    .nav :is(a, button):nth-child(3) {
+        grid-column: 4;
+    }
+
+    .nav :is(a, button):nth-child(4) {
+        display: none;
+    }
+
+    .nav :is(a, button):nth-child(5) {
+        grid-column: 5;
+    }
+}

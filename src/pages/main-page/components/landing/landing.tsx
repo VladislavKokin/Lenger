@@ -1,8 +1,9 @@
+import { FadeIn } from '../../../../../shared/ui/FadeIn/FadeIn'
 import { Cta, Devices, Faq, Features, Footer, Header, Hero, Steps } from './components'
 
 export const Landing = () => {
   return (
-    <section>
+    <FadeIn as="section">
       <Header />
       <Hero />
       <Features />
@@ -11,6 +12,6 @@ export const Landing = () => {
       <Faq />
       <Cta />
       <Footer />
-    </section>
+    </FadeIn>
   );
 }

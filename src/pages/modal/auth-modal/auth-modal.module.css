@@ -1,5 +1,3 @@
-/* Шапка окна входа и регистрации: бренд и переключатель. Цвета — токены из index.css. */
-
 .root {
   display: grid;
   gap: 18px;
@@ -33,7 +31,6 @@
   background: var(--color-divider);
 }
 
-/* плашка под активной вкладкой, переезжает при переключении */
 .tabs::before {
   content: '';
   position: absolute;

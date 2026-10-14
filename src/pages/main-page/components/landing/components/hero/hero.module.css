@@ -1,54 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
-
-.container {
-  width: 100%;
-  max-width: 75rem;
-  margin-inline: auto;
-  padding-inline: var(--layout-page-padding);
-}
-
-/* ---------- Кнопки ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--control-height);
-  padding-inline: var(--space-4);
-  border: 0;
-  border-radius: var(--radius-md);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background-color var(--duration-fast) var(--ease),
-    transform var(--duration-fast) var(--ease);
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btnQuiet {
-  background: transparent;
-  color: var(--color-text);
-  box-shadow: inset 0 0 0 1px var(--color-border);
-}
-
-.btnQuiet:hover {
-  background: var(--color-surface);
-}
-
-.btnLime {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  box-shadow: inset 0 0 0 1px var(--color-accent-border);
-}
-
-.btnLime:hover {
-  background: var(--color-accent-hover);
-}
-
-/* ---------- Первый экран: лист тетради учёта ---------- */
 .hero {
   padding-top: var(--space-6);
 }
@@ -67,7 +16,6 @@
     var(--color-surface);
 }
 
-/* Лаймовая линия полей слева */
 .sheet::before {
   content: '';
   position: absolute;
@@ -92,14 +40,13 @@
 }
 
 .hero h1 {
-  font-family: 'Unbounded', var(--font-sans);
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 7.4vw, 5.25rem);
   line-height: 1.02;
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
-/* Маркер под словом «счёт»: полоса в нижней половине строки */
 .hero mark {
   --band: light-dark(var(--color-accent), color-mix(in srgb, var(--color-accent) 30%, transparent));
   padding-inline: 0.08em;
@@ -120,12 +67,6 @@
   gap: var(--space-3);
 }
 
-.btnLg {
-  height: 3.375rem; /* 54 */
-  padding-inline: var(--space-6);
-  border-radius: var(--radius-lg);
-}
-
 .micro {
   display: flex;
   gap: var(--space-2);
@@ -133,7 +74,6 @@
   color: var(--color-text-muted);
 }
 
-/* Галочка из public/icons: маска красит её в цвет токена */
 .micro::before {
   content: '';
   flex: none;
@@ -141,7 +81,7 @@
   height: 1rem;
   margin-top: 3px;
   background: var(--color-accent-text);
-  mask: url('/icons/check.svg') center / contain no-repeat;
+  mask: url('../../../../../../../shared/ui/Icons/svg/check.svg') center / contain no-repeat;
 }
 
 .heroVisual {
@@ -149,7 +89,6 @@
   align-self: center;
 }
 
-/* Лаймовое свечение за телефоном */
 .heroVisual::before {
   content: '';
   position: absolute;
@@ -161,7 +100,6 @@
   );
 }
 
-/* Телефон стоит в потоке, поэтому лист растягивается под его полную высоту */
 .heroPhone {
   position: relative;
   width: min(300px, 80%);
@@ -180,8 +118,6 @@
   box-shadow: var(--shadow-popover);
 }
 
-/* ---------- Превью под тему ---------- */
-/* Тема системная, data-theme на <html> её перебивает — как в index.css */
 .onLight {
   display: block;
 }
@@ -208,7 +144,6 @@
   display: block;
 }
 
-/* Широкий экран: текст и телефон в две колонки */
 @media (min-width: 900px) {
   .sheet {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);

@@ -2,10 +2,10 @@ import styles from './faq.module.css'
 
 export const Faq = () => {
   return (
-    <section className={`${styles.container} ${styles.faq}`} id="faq" aria-labelledby="faq-h">
+    <section className={`container ${styles.faq}`} id="faq" aria-labelledby="faq-h">
       <div className={styles.grid}>
         <div className={styles.head}>
-          <h2 id="faq-h">Вопросы</h2>
+          <h2 className="section-title" id="faq-h">Вопросы</h2>
           <p>Коротко о главном.</p>
         </div>
         <div className={styles.list}>

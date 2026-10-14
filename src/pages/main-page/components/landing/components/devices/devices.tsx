@@ -2,9 +2,9 @@ import styles from './devices.module.css'
 
 export const Devices = () => {
   return (
-    <section className={`${styles.container} ${styles.devices}`} id="devices" aria-labelledby="dev-h">
-      <div className={styles.head}>
-        <h2 id="dev-h">На телефоне, планшете и компьютере</h2>
+    <section className={`container ${styles.devices}`} id="devices" aria-labelledby="dev-h">
+      <div className="section-head">
+        <h2 className="section-title" id="dev-h">На телефоне, планшете и компьютере</h2>
         <p>
           Записывайте траты на ходу, а разбирайте бюджет на большом экране. Данные одни и те же —
           достаточно войти в свой аккаунт.

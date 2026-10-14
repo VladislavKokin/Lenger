@@ -7,7 +7,7 @@ export const Hero = () => {
 
   return (
     <>
-      <div className={`${styles.container} ${styles.hero}`} id="top" aria-labelledby="hero-h">
+      <div className={`container ${styles.hero}`} aria-labelledby="hero-h">
         <div className={styles.sheet}>
           <div className={styles.heroText}>
             <span className={styles.eyebrow}>Учёт доходов и расходов</span>
@@ -21,12 +21,12 @@ export const Hero = () => {
             <div className={styles.cta}>
               <button
                 type="button"
-                className={`${styles.btn} ${styles.btnLime} ${styles.btnLg}`}
+                className="btn btn-lime btn-lg"
                 onClick={() => setIsModalWindow('register')}
               >
                 Создать аккаунт
               </button>
-              <a className={`${styles.btn} ${styles.btnQuiet} ${styles.btnLg}`} href="#features">
+              <a className="btn btn-quiet btn-lg" href="#features">
                 Посмотреть возможности
               </a>
             </div>

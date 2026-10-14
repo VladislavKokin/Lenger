@@ -2,7 +2,7 @@ import styles from './footer.module.css'
 
 export const Footer = () => {
   return (
-    <footer className={`${styles.container} ${styles.footer}`}>
+    <footer className={`container ${styles.footer}`}>
       <a className={styles.logo} href="#top">
         <i>₽</i>Мои финансы
       </a>

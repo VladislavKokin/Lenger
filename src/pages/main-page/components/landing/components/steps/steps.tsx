@@ -2,9 +2,9 @@ import styles from './steps.module.css'
 
 export const Steps = () => {
   return (
-    <section className={`${styles.container} ${styles.steps}`} id="how" aria-labelledby="how-h">
-      <div className={styles.head}>
-        <h2 id="how-h">Как начать</h2>
+    <section className={`container ${styles.steps}`} id="how" aria-labelledby="how-h">
+      <div className="section-head">
+        <h2 className="section-title" id="how-h">Как начать</h2>
         <p>Три шага — и учёт уже идёт.</p>
       </div>
       <ol className={styles.list}>

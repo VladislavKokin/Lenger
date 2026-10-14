@@ -1,0 +1,8 @@
+export { Analytics } from './analytics/analytics'
+export { Kpis } from './kpis/kpis'
+export { SpendingTrend } from './spending-trend/spending-trend'
+export { TopCategories } from './top-categories/top-categories'
+export { MonthsOverview } from './months-overview/months-overview'
+export { AccountsOverview } from './accounts-overview/accounts-overview'
+export { RecentOperations } from './recent-operations/recent-operations'
+export { DailySpending } from './daily-spending/daily-spending'

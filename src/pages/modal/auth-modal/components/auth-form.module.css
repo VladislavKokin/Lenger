@@ -1,12 +1,10 @@
-/* Форма регистрации из макета «Окно входа и регистрации». Цвета — токены из index.css. */
-
 .root {
   display: grid;
   gap: 18px;
 }
 
 .title {
-  font-size: 1.5rem; /* 24 */
+  font-size: 1.5rem;
   font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
 }
@@ -16,7 +14,6 @@
   gap: 14px;
 }
 
-/* ---------- Поле ---------- */
 .field {
   display: grid;
   gap: 6px;
@@ -53,7 +50,6 @@
   box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
-/* ---------- Пароль с кнопкой «показать» ---------- */
 .pass {
   position: relative;
 }
@@ -80,17 +76,6 @@
   color: var(--color-text);
 }
 
-.ico {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ---------- Кнопка отправки ---------- */
 .submit {
   display: inline-flex;
   align-items: center;
@@ -118,13 +103,22 @@
   background: var(--color-accent-hover);
 }
 
+.submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .submit:active {
     transform: translateY(1px);
   }
 }
 
-/* ---------- Переход ко входу ---------- */
 .switch {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);

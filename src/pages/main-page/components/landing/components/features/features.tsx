@@ -3,12 +3,12 @@ import styles from './features.module.css'
 export const Features = () => {
   return (
     <section
-      className={`${styles.container} ${styles.features}`}
+      className={`container ${styles.features}`}
       id="features"
       aria-labelledby="feat-h"
     >
-      <div className={styles.head}>
-        <h2 id="feat-h">Всё для учёта — и ничего лишнего</h2>
+      <div className="section-head">
+        <h2 className="section-title" id="feat-h">Всё для учёта — и ничего лишнего</h2>
         <p>Главное видно сразу на главной странице, остальное — в пару нажатий.</p>
       </div>
       <div className={styles.bento}>
