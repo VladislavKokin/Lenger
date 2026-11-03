@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import w from '../widget.module.css'
-import { ArrowDownIcon, ArrowUpIcon, BusIcon, CartIcon, CupIcon, DotsIcon, FilmIcon, HouseIcon, PlusIcon, RightIcon } from '../../../../../../../../../shared/ui/Icons/Icons'
+import { ArrowDownIcon, ArrowUpIcon, BusIcon, CartIcon, CupIcon, DotsIcon, FilmIcon, HouseIcon, RightIcon } from '../../../../../../../../../shared/ui/Icons/Icons'
 import { ROUTES } from '../../../../../../../../../shared/routes/routes'
 
 export const TopCategories = () => {
@@ -11,7 +11,7 @@ export const TopCategories = () => {
                     <h3 id="ca-h">Куда уходят деньги</h3>
                     <p>Расходы с 1 по 21 сентября · 25&nbsp;899&nbsp;₽</p>
                 </div>
-                <Link className={w.more} to={ROUTES.CATEGORIES}>Категории<RightIcon className="icon icon-sm" aria-hidden="true" /></Link>
+                <Link className="more" to={ROUTES.CATEGORIES}>Категории<RightIcon className="icon icon-sm" aria-hidden="true" /></Link>
             </div>
             <ul className={w.rank}>
                 <li className={w.row}>
@@ -63,7 +63,6 @@ export const TopCategories = () => {
                     </div>
                 </li>
             </ul>
-            <button type="button" className={w.addBtn}><PlusIcon className="icon icon-sm" aria-hidden="true" />Новая категория</button>
         </section>
     )
 }

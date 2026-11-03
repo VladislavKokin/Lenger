@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { Modal } from '../../../../shared/ui/Modal/Modal'
 import { Authorization, Registration } from './components'
+import form from '../modal.module.css'
 import styles from './auth-modal.module.css'
 
 export type AuthModalMode = 'auth' | 'register' | null
@@ -20,7 +21,7 @@ export const AuthModal = ({ mode, onChange }: AuthModalProps) => {
 
     return (
         <Modal isOpen={mode !== null} onClose={() => onChange(null)}>
-            <div className={styles.root}>
+            <div className={form.root}>
                 <div className={styles.brand}>
                     <i>₽</i>Мои финансы
                 </div>
@@ -50,7 +51,9 @@ export const AuthModal = ({ mode, onChange }: AuthModalProps) => {
                         exit={{ opacity: 0, x: offset }}
                         transition={{ duration: 0.15 }}
                     >
-                        {mode === 'auth' && <Authorization onSwitch={() => onChange('register')} />}
+                        {mode === 'auth' && (
+                            <Authorization onSwitch={() => onChange('register')} onSuccess={() => onChange(null)} />
+                        )}
                         {mode === 'register' && <Registration onSwitch={() => onChange('auth')} />}
                     </motion.div>
                 </AnimatePresence>

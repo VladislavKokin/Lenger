@@ -1,11 +1,15 @@
-import styles from './header.module.css'
+import { useState } from 'react'
+import { OperationModal } from '../../../../../modal/operation-modal/operation-modal'
 import { LeftIcon, RightIcon, PlusIcon } from '../../../../../../../shared/ui/Icons/Icons'
+import styles from './header.module.css'
 
 type HeaderProps = {
     title: string
 }
 
 export const Header = ({ title }: HeaderProps) => {
+    const [isOperationOpen, setIsOperationOpen] = useState(false);
+
     return (
         <section className={styles.header}>
             <h4>{title}</h4>
@@ -20,10 +24,11 @@ export const Header = ({ title }: HeaderProps) => {
             </span>
             <span className={styles.asof}>Данные на 21 сентября</span>
             <span className={styles.grow}></span>
-            <button className={styles.btnAcc}>
+            <button type="button" className={styles.btnAcc} onClick={() => setIsOperationOpen(true)}>
                 <PlusIcon className="icon icon-sm" aria-hidden="true" />
                 Новая операция
             </button>
+            <OperationModal isOpen={isOperationOpen} onClose={() => setIsOperationOpen(false)} />
         </section>
     )
-}
+};

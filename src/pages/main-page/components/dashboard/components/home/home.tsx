@@ -1,5 +1,5 @@
 import { Header } from '../header/header'
-import { Kpis, SpendingTrend, TopCategories, MonthsOverview, AccountsOverview, RecentOperations, DailySpending } from './components'
+import { Kpis, SpendingTrend, TopCategories, AccountsOverview, RecentOperations } from './components'
 import styles from './home.module.css'
 
 export const Home = () => {
@@ -11,10 +11,8 @@ export const Home = () => {
             <div className={styles.grid}>
                 <SpendingTrend />
                 <TopCategories />
-                <MonthsOverview />
-                <AccountsOverview />
                 <RecentOperations />
-                <DailySpending />
+                <AccountsOverview />
             </div>
         </div>
         </>

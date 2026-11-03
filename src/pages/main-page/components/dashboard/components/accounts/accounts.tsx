@@ -1,15 +1,19 @@
-import styles from './accounts.module.css'
+import { useState } from 'react'
 import { BankIcon, CardIcon, CashIcon, PencilIcon, PlusIcon } from '../../../../../../../shared/ui/Icons/Icons'
 import { Header } from '../header/header'
+import { AccountModal } from '../../../../../modal/account/account-modal'
+import styles from './accounts.module.css'
 
 export const Accounts = () => {
+    const [isAccountOpen, setIsAccountOpen] = useState(false)
+
     return (
         <>
         <Header title="Счета" />
         <section className="card">
             <div className="card-head">
                 <b>Счета</b>
-                <span className="card-action"><PlusIcon className="icon icon-sm" aria-hidden="true" />Счёт</span>
+                <button className="more" onClick={() => setIsAccountOpen(true)}><PlusIcon className="icon icon-sm" aria-hidden="true" />Счёт</button>
             </div>
             <p className={styles.total}>Всего<b><mark className={styles.hl}>84&nbsp;250&nbsp;₽</mark></b></p>
             <ul className={styles.list}>
@@ -32,6 +36,7 @@ export const Accounts = () => {
                     <PencilIcon className={`icon icon-sm ${styles.edit}`} aria-hidden="true" />
                 </li>
             </ul>
+            <AccountModal isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
         </section>
         </>
     )

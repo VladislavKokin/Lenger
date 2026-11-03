@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
-import { User } from "../models/User.ts";
+import { token } from '../../helpers/index.ts';
+import { User } from "../../models/User.ts";
 
 export const register = async (name: string, email: string, password: string) => {
     if (!password) {
@@ -10,5 +11,7 @@ export const register = async (name: string, email: string, password: string) =>
 
     const user = await User.create({ name, email, password: passwordHash })
 
-    return user;
+    const accessToken = token.generate({ id: user.id })
+
+    return {user, accessToken};
 }

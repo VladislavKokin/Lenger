@@ -10,14 +10,10 @@ export const RecentOperations = () => {
             <div className={w.head}>
                 <div><h3 id="op-h">Операции</h3></div>
                 <div className={w.actions}>
-                    <div className={styles.tabs} role="tablist" aria-label="Список операций">
-                        <button type="button" role="tab" aria-selected="true">Последние</button>
-                        <button type="button" role="tab" aria-selected="false">Крупные за месяц</button>
-                    </div>
-                    <Link className={w.more} to={ROUTES.HISTORY}>Вся история<RightIcon className="icon icon-sm" aria-hidden="true" /></Link>
+                    <Link className="more" to={ROUTES.HISTORY}>Вся история<RightIcon className="icon icon-sm" aria-hidden="true" /></Link>
                 </div>
             </div>
-            <ul className={styles.list} role="tabpanel">
+            <ul className={styles.list}>
                 <li>
                     <span className={w.tile} style={{ background: 'var(--color-cat-amber-soft)', color: 'var(--color-cat-amber)' }}><CupIcon className="icon" aria-hidden="true" /></span>
                     <div><b>Кофе с собой</b><small>Кафе · Основная карта · сегодня</small></div>

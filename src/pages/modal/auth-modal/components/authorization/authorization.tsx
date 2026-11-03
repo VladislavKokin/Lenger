@@ -1,22 +1,41 @@
 import { useState, type SubmitEvent } from 'react'
+import { useDispatch } from 'react-redux'
+import form from '../../../modal.module.css'
 import styles from '../auth-form.module.css'
+import { EyeIcon } from '../../../../../../shared/ui/Icons/Icons'
+import { getErrorMessage, useLoginMutation } from '../../../../../../shared/api'
+import { setUser } from '../../../../../store/auth-slice'
 
 type AuthorizationProps = {
-    onSwitch?: () => void 
+    onSwitch?: () => void
+    onSuccess?: () => void
 }
 
-export const Authorization = ({ onSwitch }: AuthorizationProps) => {
+export const Authorization = ({ onSwitch, onSuccess }: AuthorizationProps) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false)
+    const [login, { isLoading, error }] = useLoginMutation()
+    const dispatch = useDispatch()
 
-    const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault()
+        const form = new FormData(event.currentTarget)
+
+        const { data } = await login({
+            email: String(form.get('email')),
+            password: String(form.get('password')),
+        })
+
+        if (data?.user) {
+            dispatch(setUser(data.user))
+            onSuccess?.()
+        }
     }
 
     return (
-        <div className={styles.root}>
-            <h2 className={styles.title}>С возвращением</h2>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.field}>
+        <div className={form.root}>
+            <h2 className={form.title}>С возвращением</h2>
+            <form className={form.form} onSubmit={handleSubmit}>
+                <div className={form.field}>
                     <label htmlFor="login-email">Электронная почта</label>
                     <input
                         id="login-email"
@@ -27,7 +46,7 @@ export const Authorization = ({ onSwitch }: AuthorizationProps) => {
                         required
                     />
                 </div>
-                <div className={styles.field}>
+                <div className={form.field}>
                     <label htmlFor="login-pass">Пароль</label>
                     <div className={styles.pass}>
                         <input
@@ -44,14 +63,12 @@ export const Authorization = ({ onSwitch }: AuthorizationProps) => {
                             aria-pressed={isPasswordShown}
                             onClick={() => setIsPasswordShown(!isPasswordShown)}
                         >
-                            <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
+                            <EyeIcon className="icon" aria-hidden="true" />
                         </button>
                     </div>
                 </div>
-                <button type="submit" className={styles.submit}>
+                {error && <p className={form.error} role="alert">{getErrorMessage(error)}</p>}
+                <button type="submit" className={form.save} disabled={isLoading}>
                     Войти
                 </button>
                 <p className={styles.switch}>

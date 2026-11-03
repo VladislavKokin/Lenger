@@ -1,14 +1,17 @@
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import styles from './Modal.module.css'
+import { CloseIcon } from '../Icons/Icons'
 
 type ModalProps = {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
+  sheetOnMobile?: boolean
 }
 
 const transition = { duration: 0.2, ease: [0.2, 0.8, 0.2, 1] } as const
+const sheetTransition = { duration: 0.45, ease: [0.2, 0.8, 0.2, 1] } as const
 
 const overlay = {
   closed: { opacity: 0 },
@@ -20,11 +23,52 @@ const card = {
   open: { y: 0, scale: 1 },
 }
 
-const showAsModal = (dialog: HTMLDialogElement | null) => {
-  if (dialog && !dialog.open) dialog.showModal()
+const sheetCard = {
+  closed: { y: '100%' },
+  open: { y: 0 },
 }
 
-export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches,
+  )
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 600px)')
+    const apply = () => setIsMobile(media.matches)
+
+    apply()
+    media.addEventListener('change', apply)
+    return () => media.removeEventListener('change', apply)
+  }, [])
+
+  return isMobile
+}
+
+export const Modal = ({ isOpen, onClose, children, sheetOnMobile = false }: ModalProps) => {
+  const isMobile = useIsMobile()
+  const isSheet = sheetOnMobile && isMobile
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const [entered, setEntered] = useState(false)
+  const [sheetReady, setSheetReady] = useState(false)
+
+  useIsoLayoutEffect(() => {
+    if (!isOpen) return
+
+    const dialog = dialogRef.current
+    if (dialog && !dialog.open) dialog.showModal()
+
+    if (isSheet) {
+      setSheetReady(true)
+      return
+    }
+
+    const frame = requestAnimationFrame(() => setEntered(true))
+    return () => cancelAnimationFrame(frame)
+  }, [isOpen, isSheet])
+
   useEffect(() => {
     if (!isOpen) return
 
@@ -42,15 +86,20 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   return (
     <MotionConfig reducedMotion="user" transition={transition}>
-      <AnimatePresence>
+      <AnimatePresence
+        onExitComplete={() => {
+          setEntered(false)
+          setSheetReady(false)
+        }}
+      >
         {isOpen && (
           <motion.dialog
-            ref={showAsModal}
-            className={styles.overlay}
-            variants={overlay}
-            initial="closed"
-            animate="open"
-            exit="closed"
+            ref={dialogRef}
+            className={sheetOnMobile ? `${styles.overlay} ${styles.sheet}` : styles.overlay}
+            variants={isSheet ? undefined : overlay}
+            initial={isSheet ? { opacity: 1 } : 'closed'}
+            animate={isSheet ? { opacity: 1 } : entered ? 'open' : 'closed'}
+            exit={isSheet ? { opacity: 1 } : 'closed'}
             onClose={onClose}
             onCancel={(event) => {
               event.preventDefault()
@@ -60,14 +109,22 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
               if (event.target === event.currentTarget) onClose()
             }}
           >
-            <motion.div className={styles.card} variants={card}>
-              {children}
-              <button type="button" className={styles.close} aria-label="Закрыть" onClick={onClose}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
-              </button>
-            </motion.div>
+            {(!isSheet || sheetReady) && (
+              <motion.div
+                className={styles.card}
+                variants={isSheet ? sheetCard : card}
+                initial="closed"
+                animate={isSheet || entered ? 'open' : 'closed'}
+                exit="closed"
+                transition={isSheet ? sheetTransition : undefined}
+              >
+                {sheetOnMobile && <span className={styles.handle} aria-hidden="true" />}
+                {children}
+                <button type="button" className={styles.close} aria-label="Закрыть" onClick={onClose}>
+                  <CloseIcon aria-hidden="true" />
+                </button>
+              </motion.div>
+            )}
           </motion.dialog>
         )}
       </AnimatePresence>

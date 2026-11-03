@@ -1,11 +1,15 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router'
-import styles from './navigation.module.css'
 import { HomeIcon, HistoryIcon, WalletIcon, TagIcon, SlidersIcon } from '../../../../../../../shared/ui/Icons/Icons'
 import { ROUTES } from '../../../../../../../shared/routes/routes'
+import { Settings } from '../../../../../modal/settings/settings'
+import styles from './navigation.module.css'
 
 const linkClass = ({ isActive }: { isActive: boolean }) => (isActive ? styles.on : undefined)
 
 export const Navigation = () => {
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+
     return (
         <aside className={styles.side}>
             <div className={styles.brand}><i>₽</i>Мои финансы</div>
@@ -26,7 +30,7 @@ export const Navigation = () => {
                     <TagIcon className={`icon ${styles.ico}`} aria-hidden="true" />
                     Категории
                 </NavLink>
-                <button type="button">
+                <button type="button" onClick={() => setIsSettingsOpen(true)}>
                     <SlidersIcon className={`icon ${styles.ico}`} aria-hidden="true" />
                     Настройки
                 </button>
@@ -35,6 +39,7 @@ export const Navigation = () => {
                 <span className={styles.ava}>ИП</span>
                 <div><b>Иван Петров</b><small>Профиль</small></div>
             </div>
+            <Settings isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         </aside>
     )
 }

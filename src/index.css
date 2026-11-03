@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&display=swap');
 
-/*
- * Тема по умолчанию — системная (prefers-color-scheme).
- * Принудительно: <html data-theme="light"> или <html data-theme="dark">.
- * Цвета заданы через light-dark(светлая, тёмная).
- */
-
 :root {
   color-scheme: light dark;
 
@@ -379,15 +373,22 @@ button {
   font-weight: 600;
 }
 
-/* «+ Счёт», «Вся история ›» в шапке карточки */
-.card-action {
+.more {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-accent-text);
-  font-weight: 600;
-  font-size: 12px;
+  text-decoration: none;
   white-space: nowrap;
+}
+
+.more:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 600px) {

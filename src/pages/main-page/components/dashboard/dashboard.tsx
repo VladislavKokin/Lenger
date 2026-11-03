@@ -6,9 +6,9 @@ import styles from './dashboard.module.css'
 export const Dashboard = () => {
     const { pathname } = useLocation()
 
-    return(
+    return (
         <FadeIn as="section" className={styles.dashboard}>
-            <Navigation/>
+            <Navigation />
             <main key={pathname} className={styles.page}>
                 <Outlet />
             </main>

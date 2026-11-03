@@ -1,4 +1,4 @@
-import type { User } from '../server/models/User.ts'
+import type { User } from '../../models/User.ts'
 
 export const mapUser = (user: InstanceType<typeof User>) => {
     return {
