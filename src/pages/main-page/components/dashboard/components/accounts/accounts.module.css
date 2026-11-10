@@ -27,7 +27,7 @@
 
 .list li {
     display: grid;
-    grid-template-columns: 32px minmax(0, 1fr) auto 14px;
+    grid-template-columns: 32px minmax(0, 1fr) auto auto;
     align-items: center;
     gap: 9px;
 }
@@ -74,10 +74,47 @@
 
 @media (max-width: 1024px) {
     .list li {
-        grid-template-columns: 32px minmax(0, 1fr) auto;
+        grid-template-columns: 32px minmax(0, 1fr) auto auto;
     }
 
     .list .edit {
         display: none;
     }
+}
+
+.actions {
+    display: flex;
+    gap: 4px;
+}
+
+.action {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+
+.action:hover {
+    background: var(--color-surface-inset);
+}
+
+.action:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.action:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+.danger,
+.error {
+    color: var(--color-danger);
 }

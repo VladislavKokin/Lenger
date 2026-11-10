@@ -34,5 +34,15 @@ export type Category = {
 }
 
 export type CreateCategoryData = Omit<Category, 'id'>
-
 export type UpdateCategoryData = Pick<Category, 'name' | 'icon' | 'color'>
+
+export type Account = {
+    id: string
+    name: string
+    type: string
+    initialBalance: number
+}
+
+export type CreateAccountData = Omit<Account, 'id'>
+export type UpdateAccountData = Omit<Account, 'id'>
+

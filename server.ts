@@ -5,13 +5,16 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { createServer as createViteServer, type EnvironmentModuleNode } from 'vite'
 import { ROUTES } from './shared/routes/routes.ts'
-import { register, login, updateUser, deleteUser, createCategory, updateCategory, deleteCategory } from './server/controllers/index.ts'
+import { register, login, updateUser, deleteUser, createCategory, updateCategory, deleteCategory, createAccount, updateAccount, deleteAccount } from './server/controllers/index.ts'
 import { mapUser } from './server/helpers/helpers/mapUser.ts'
 import { mapCategory } from './server/helpers/helpers/mapCategory.ts'
+import { mapAccount } from './server/helpers/helpers/mapAccount.ts'
 import { token } from './server/helpers/index.ts'
+import { authenticated } from './server/middlewares/authenticated.ts'
 import { User } from './server/models/User.ts'
 import { Category } from './server/models/Category.ts'
-import { authenticated } from './server/middlewares/authenticated.ts'
+import { Account } from './server/models/Account.ts'
+
 
 process.loadEnvFile()
 
@@ -146,6 +149,80 @@ app.delete('/api/categories/:id', authenticated, async (req, res) => {
   }
 })
 
+app.post('/api/accounts', authenticated, async (req, res) => {
+  try {
+    const account = await createAccount(res.locals.user.id, req.body)
+
+    res.status(201).send({ error: null, account: mapAccount(account) })
+  } catch (e) {
+    res.status(400).send({
+      error: (e as Error).message || 'Не удалось создать счёт',
+    })
+  }
+})
+
+app.get('/api/accounts', authenticated, async (_req, res) => {
+  try {
+    const accounts = await Account.find({
+      userId: res.locals.user.id,
+    }).sort({ createdAt: 1 })
+
+    res.send({ error: null, accounts: accounts.map(mapAccount) })
+  } catch {
+    res.status(500).send({ error: 'Не удалось загрузить счета' })
+  }
+})
+
+app.patch('/api/accounts/:id', authenticated, async (req, res) => {
+  const id = req.params.id
+
+  if (typeof id !== 'string' || !mongoose.isValidObjectId(id)) {
+    res.status(400).send({ error: 'Неверный идентификатор счёта' })
+    return
+  }
+
+  try {
+    const account = await updateAccount(res.locals.user.id, id, req.body)
+
+    if (!account) {
+      res.status(404).send({ error: 'Счёт не найден' })
+      return
+    }
+
+    res.send({ error: null, account: mapAccount(account) })
+  } catch (e) {
+    res.status(400).send({
+      error: (e as Error).message || 'Не удалось обновить счёт',
+    })
+  }
+})
+
+app.delete('/api/accounts/:id', authenticated, async (req, res) => {
+  const id = req.params.id
+
+  if (typeof id !== 'string' || !mongoose.isValidObjectId(id)) {
+    res.status(400).send({ error: 'Неверный идентификатор счёта' })
+    return
+  }
+
+  try {
+    const result = await deleteAccount(res.locals.user.id, id)
+
+    if (result === 'not-found') {
+      res.status(404).send({ error: 'Счёт не найден' })
+      return
+    }
+
+    if (result === 'in-use') {
+      res.status(409).send({ error: 'Нельзя удалить счёт с операциями' })
+      return
+    }
+
+    res.send({ error: null })
+  } catch {
+    res.status(500).send({ error: 'Не удалось удалить счёт' })
+  }
+})
 
 app.patch('/api/user', authenticated, async (req, res) => {
   try {
@@ -169,6 +246,8 @@ app.delete('/api/user', authenticated, async (_req, res) => {
     res.send({ error: (e as Error).message || 'Unknown error' })
   }
 })
+
+
 
 app.get(Object.values(ROUTES), renderApp(200))
 app.use('*all', renderApp(404))
