@@ -24,3 +24,15 @@ export type UpdateUserData = Partial<{
     name: string
     settings: { theme: 'dark' | 'light' }
 }>
+
+export type Category = {
+    id: string
+    name: string
+    icon: string
+    type: 'expense' | 'income'
+    color: string
+}
+
+export type CreateCategoryData = Omit<Category, 'id'>
+
+export type UpdateCategoryData = Pick<Category, 'name' | 'icon' | 'color'>

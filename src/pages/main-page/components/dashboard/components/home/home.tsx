@@ -5,7 +5,7 @@ import styles from './home.module.css'
 export const Home = () => {
     return (
         <>
-        <Header title="Главная" />
+        <Header />
         <div className={styles.home}>
             <Kpis />
             <div className={styles.grid}>

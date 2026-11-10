@@ -1,3 +1,52 @@
+.typeSwitch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  background: var(--color-divider);
+}
+
+.typeSwitch::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration) var(--ease);
+}
+
+.typeSwitchIncome::before {
+  transform: translateX(100%);
+}
+
+.typeButton {
+  position: relative;
+  height: var(--control-height-sm);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.typeButton:hover,
+.typeButtonActive {
+  color: var(--color-text);
+}
+
+.typeButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
 .categories {
   display: grid;
   gap: 8px;
@@ -20,6 +69,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.message {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  color: var(--color-danger);
 }
 
 .chip,

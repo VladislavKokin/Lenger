@@ -1,0 +1,95 @@
+.nameRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .nameRow input {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .picker {
+    position: relative;
+    flex: none;
+  }
+  
+  .trigger,
+  .swatch,
+  .icon,
+  .iconOn,
+  .color {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .trigger,
+  .swatch {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+  }
+  
+  .swatch {
+    box-shadow: inset 0 0 0 1px var(--color-border);
+  }
+  
+  .panel {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: calc(100% + 6px);
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: max-content;
+    max-width: 196px;
+    padding: 8px;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow:
+      0 0 0 1px var(--color-border),
+      var(--shadow-popover);
+  }
+  
+  .icon,
+  .iconOn {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-inset);
+    color: var(--color-text);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+  }
+  
+  .iconOn {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: none;
+  }
+  
+  .color {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
+  
+  .color[aria-pressed='true'] {
+    box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px currentColor;
+  }
+  
+  .trigger:focus-visible,
+  .swatch:focus-visible,
+  .icon:focus-visible,
+  .iconOn:focus-visible,
+  .color:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  

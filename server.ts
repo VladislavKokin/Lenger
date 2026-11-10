@@ -5,10 +5,12 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { createServer as createViteServer, type EnvironmentModuleNode } from 'vite'
 import { ROUTES } from './shared/routes/routes.ts'
-import { register, login, updateUser, deleteUser } from './server/controllers/index.ts'
+import { register, login, updateUser, deleteUser, createCategory, updateCategory, deleteCategory } from './server/controllers/index.ts'
 import { mapUser } from './server/helpers/helpers/mapUser.ts'
+import { mapCategory } from './server/helpers/helpers/mapCategory.ts'
 import { token } from './server/helpers/index.ts'
 import { User } from './server/models/User.ts'
+import { Category } from './server/models/Category.ts'
 import { authenticated } from './server/middlewares/authenticated.ts'
 
 process.loadEnvFile()
@@ -82,9 +84,68 @@ app.post('/api/login', async (req, res) => {
   }
 })
 
-app.post('/api/logout', async (req, res) => {
+app.post('/api/logout', async (_req, res) => {
     res.cookie('token', '', { httpOnly: true }).send({})
 })
+
+app.post('/api/categories', authenticated, async (req, res) => {
+  try {
+    const category = await createCategory(res.locals.user.id, req.body)
+    res.send({ error: null, category: mapCategory(category) })
+  } catch (e) {
+    res.send({ error: (e as Error).message || 'Unknown error' })
+  }
+})
+
+app.get('/api/categories', authenticated, async (_req, res) => {
+  const categories = await Category.find({ userId: res.locals.user.id }).sort({ createdAt: 1 })
+  res.send({ error: null, categories: categories.map(mapCategory) })
+})
+
+app.patch('/api/categories/:id', authenticated, async (req, res) => {
+  const id = req.params.id
+  if (typeof id !== 'string' || !mongoose.isValidObjectId(id)) {
+    res.status(400).send({ error: 'Неверный идентификатор категории' })
+    return
+  }
+
+  try {
+    const category = await updateCategory(res.locals.user.id, id, req.body)
+    if (!category) {
+      res.status(404).send({ error: 'Категория не найдена' })
+      return
+    }
+
+    res.send({ error: null, category: mapCategory(category) })
+  } catch (e) {
+    res.status(400).send({ error: (e as Error).message || 'Не удалось обновить категорию' })
+  }
+})
+
+app.delete('/api/categories/:id', authenticated, async (req, res) => {
+  const id = req.params.id
+  if (typeof id !== 'string' || !mongoose.isValidObjectId(id)) {
+    res.status(400).send({ error: 'Неверный идентификатор категории' })
+    return
+  }
+
+  try {
+    const result = await deleteCategory(res.locals.user.id, id)
+    if (result === 'not-found') {
+      res.status(404).send({ error: 'Категория не найдена' })
+      return
+    }
+    if (result === 'in-use') {
+      res.status(409).send({ error: 'Нельзя удалить категорию с операциями' })
+      return
+    }
+
+    res.send({ error: null })
+  } catch {
+    res.status(500).send({ error: 'Не удалось удалить категорию' })
+  }
+})
+
 
 app.patch('/api/user', authenticated, async (req, res) => {
   try {
@@ -99,7 +160,7 @@ app.patch('/api/user', authenticated, async (req, res) => {
   }
 })
 
-app.delete('/api/user', authenticated, async (req, res) => {
+app.delete('/api/user', authenticated, async (_req, res) => {
   try {
     await deleteUser(res.locals.user.id)
 

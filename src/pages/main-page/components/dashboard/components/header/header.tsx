@@ -4,10 +4,10 @@ import { LeftIcon, RightIcon, PlusIcon } from '../../../../../../../shared/ui/Ic
 import styles from './header.module.css'
 
 type HeaderProps = {
-    title: string
+    title?: string
 }
 
-export const Header = ({ title }: HeaderProps) => {
+export const Header = ({ title = 'Главная' }: HeaderProps) => {
     const [isOperationOpen, setIsOperationOpen] = useState(false);
 
     return (

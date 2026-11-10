@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type SubmitEvent } from 'react'
+import { getErrorMessage, useCreateCategoryMutation, useUpdateCategoryMutation, type Category } from '../../../../shared/api'
 import { Modal } from '../../../../shared/ui/Modal/Modal'
 import {
     BankIcon,
@@ -54,12 +55,24 @@ type Picker = 'icon' | 'color'
 
 type CategoryModalProps = {
     isOpen: boolean
+    type: 'expense' | 'income'
+    category?: Category | null
     onClose: () => void
 }
 
-export const CategoryModal = ({ isOpen, onClose }: CategoryModalProps) => {
-    const [icon, setIcon] = useState<IconName>('cart')
-    const [color, setColor] = useState<ColorName>('blue')
+export const CategoryModal = ({ isOpen, onClose, type, category = null }: CategoryModalProps) => {
+    const [icon, setIcon] = useState<IconName>(() =>
+        category?.icon && Object.hasOwn(ICONS, category.icon) ? category.icon as IconName : 'cart',
+    )
+    const [color, setColor] = useState<ColorName>(() =>
+        COLORS.find((item) => item === category?.color) ?? 'blue',
+    )
+
+    const [createCategory, createState] = useCreateCategoryMutation()
+    const [updateCategory, updateState] = useUpdateCategoryMutation()
+    const isLoading = createState.isLoading || updateState.isLoading
+    const error = category ? updateState.error : createState.error
+
     const [open, setOpen] = useState<Picker | null>(null)
     const rowRef = useRef<HTMLDivElement>(null)
     const Icon = ICONS[icon]
@@ -77,12 +90,28 @@ export const CategoryModal = ({ isOpen, onClose }: CategoryModalProps) => {
 
     const toggle = (picker: Picker) => setOpen(open === picker ? null : picker)
 
+    const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const name = String(new FormData(event.currentTarget).get('name') ?? '').trim()
+
+        try {
+            if (category) {
+                await updateCategory({ id: category.id, data: { name, icon, color } }).unwrap()
+            } else {
+                await createCategory({ name, icon, color, type }).unwrap()
+            }
+            onClose()
+        } catch {
+            return
+        }
+    }
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} sheetOnMobile>
             <div className={form.root}>
-                <h2 className={form.title}>Новая категория</h2>
+                <h2 className={form.title}>{category ? 'Редактировать категорию' : 'Новая категория'}</h2>
 
-                <form className={form.form}>
+                <form className={form.form} onSubmit={handleSubmit}>
                     <div className={form.field}>
                         <label htmlFor="category-name">Название категории</label>
                         <div className={styles.nameRow} ref={rowRef}>
@@ -91,6 +120,8 @@ export const CategoryModal = ({ isOpen, onClose }: CategoryModalProps) => {
                                 name="name"
                                 type="text"
                                 placeholder="Продукты"
+                                defaultValue={category?.name ?? ''}
+                                maxLength={40}
                                 required
                             />
                             <div className={styles.picker}>
@@ -166,8 +197,13 @@ export const CategoryModal = ({ isOpen, onClose }: CategoryModalProps) => {
                     <input type="hidden" name="icon" value={icon} />
                     <input type="hidden" name="color" value={color} />
 
-                    <button type="button" className={form.save}>
-                        Добавить категорию
+                    {error && (
+                        <p className={form.error} role="alert">
+                            {getErrorMessage(error)}
+                        </p>
+                    )}
+                    <button type="submit" className={form.save} disabled={isLoading}>
+                        {isLoading ? 'Сохраняем…' : category ? 'Сохранить изменения' : 'Добавить категорию'}
                     </button>
                 </form>
             </div>
